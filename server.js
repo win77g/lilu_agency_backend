@@ -27,13 +27,12 @@ app.use(Router);
 //   next(createError(404));
 // });
 console.log(process.env.MONGO_URI)
-
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_URI, {
 
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    // useFindAndModify: false
     
     }, err => {
     if(err) throw err;
