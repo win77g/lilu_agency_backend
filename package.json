@@ -1,0 +1,33 @@
+{
+  "name": "first-node-app",
+  "version": "1.0.0",
+  "description": "my first nodejs express app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "cyrillic-to-latin": "^2.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "mongoosastic": "^5.0.0",
+    "mongoose": "^6.5.2",
+    "mongoose-paginate-v2": "^1.7.0",
+    "nodemailer": "^6.9.2",
+    "nodemailer-sendgrid": "^1.0.3",
+    "request-json": "^0.6.5",
+    "tslib": "^2.6.2"
+  },
+  "engines": {
+    "node": "12.20.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
