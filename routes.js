@@ -3,7 +3,7 @@ const express = require("express");
 const RodModel = require("./models/modelRod");
 const ActorsModel = require("./models/modelActors");
 const SliderModel = require("./models/modelSlider");
-// const WorkTimeModel = require("./models/modelWorkTime");
+const BlogModel = require("./models/modelBlog");
 // const SiutableForModel = require("./models/modelSiutableFor");
 // const LanguageModel = require("./models/modelLanguage");
 // const ClientEmailModel = require("./models/modelClientEmail");
@@ -192,25 +192,6 @@ app.get("/get_Slider", async (request, response) => {
     response.status(500).send(error);
   }
 });
-app.put("/update_Contract/:id",async (request, response) => {
-  const { id } = request.params;
-  
-  console.log(id,request.body)
-  
-  try {
-    const product = await ContractModel.findByIdAndUpdate(id,
-      {
-      title: request.body.title,
-      slug: request.body.slug
-      }
-    ,{new: true});//respons update data
-    //response.send(product);
-    response.json(product);
-  }  
-  catch (e) {
-    response.status(500).send(e);
-  }
-});
 app.delete("/delete_Slider/:id", async (request, response) => {
   try {
     const processor= await SliderModel.findByIdAndDelete(request.params.id);
@@ -221,57 +202,65 @@ app.delete("/delete_Slider/:id", async (request, response) => {
     response.status(500).send(error);
   }
 });
-///////////////////////////////////Education///////////////////////////////////////////////////////////////////
-// app.post("/add_Education",async (request, response) => {
-//   console.log('208',request.body)
-//   const category = new EducationModel(request.body);
-
-//   try {
-//     await category.save();
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// }); 
-// app.get("/get_Education", async (request, response) => {
-//   const category = await EducationModel.find({});
+///////////////////////////////////Blog///////////////////////////////////////////////////////////////////
+app.post("/add_Blog",async (request, response) => {
+  console.log('207',request.body)
+  const data = new BlogModel(request.body);
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_Blog", async (request, response) => {
+  const category = await BlogModel.find({});
   
-//   try {
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.put("/update_Education/:id",async (request, response) => {
-//   const { id } = request.params;
+  try {
+    response.send(category);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.get("/get_Blog/:id", async (request, response) => {
+  const { id } = request.params;
+  const data = await BlogModel.findById(id);
   
-//   console.log(id,request.body)
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/update_Blog/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   try {
-//     const product = await EducationModel.findByIdAndUpdate(id,
-//       {
-//         title: request.body.title,
-//         slug: request.body.slug
-//       }
+  console.log('238',id,request.body)
+  
+  try {
+    const data = await BlogModel.findByIdAndUpdate(id,
+      {
+        $set:request.body
+      }
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
-// app.delete("/delete_Education/:id", async (request, response) => {
-//   try {
-//     const processor= await EducationModel.findByIdAndDelete(request.params.id);
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(data);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.delete("/delete_Blog/:id", async (request, response) => {
+  try {
+    const processor= await BlogModel.findByIdAndDelete(request.params.id);
 
-//     if (!processor) response.status(404).send("No item found");
-//     response.status(200).send();
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
+    if (!processor) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 ///////////////////////////////////SuitableFor///////////////////////////////////////////////////////////////////
 // app.post("/add_Su",async (request, response) => {
 //   const category = new SiutableForModel(request.body);
