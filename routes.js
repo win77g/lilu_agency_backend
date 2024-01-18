@@ -4,6 +4,7 @@ const RodModel = require("./models/modelRod");
 const ActorsModel = require("./models/modelActors");
 const SliderModel = require("./models/modelSlider");
 const BlogModel = require("./models/modelBlog");
+const SecondBlockModel = require("./models/modelSecondBlock");
 // const SiutableForModel = require("./models/modelSiutableFor");
 // const LanguageModel = require("./models/modelLanguage");
 // const ClientEmailModel = require("./models/modelClientEmail");
@@ -261,58 +262,55 @@ app.delete("/delete_Blog/:id", async (request, response) => {
     response.status(500).send(error);
   }
 });
-///////////////////////////////////SuitableFor///////////////////////////////////////////////////////////////////
-// app.post("/add_Su",async (request, response) => {
-//   const category = new SiutableForModel(request.body);
-
-//   try {
-//     await category.save();
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// }); 
-// app.get("/get_Su", async (request, response) => {
-//   console.log('269',)
-//   const category = await SiutableForModel.find({});
+///////////////////////////////////SecondBlock///////////////////////////////////////////////////////////////////
+app.post("/add_SB",async (request, response) => {
+  const category = new SecondBlockModel(request.body);
+  console.log('268',category)
+  try {
+    await category.save();
+    response.send(category);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_SB", async (request, response) => {
   
-//   try {
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.put("/update_Su/:id",async (request, response) => {
-//   const { id } = request.params;
+  const category = await SecondBlockModel.find({});
   
-//   console.log(id,request.body)
+  try {
+    response.send(category);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/update_SB/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   try {
-//     const product = await SiutableForModel.findByIdAndUpdate(id,
+  console.log(id,request.body)
+  
+  try {
+    const product = await SecondBlockModel.findByIdAndUpdate(id,
       
-//       {
-//         title: request.body.title,
-//         slug: request.body.slug
-//         }
+      { $set:request.body }
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
-// app.delete("/delete_Su/:id", async (request, response) => {
-//   try {
-//     const processor= await SiutableForModel.findByIdAndDelete(request.params.id);
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(product);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.delete("/delete_SB/:id", async (request, response) => {
+  try {
+    const processor= await SecondBlockModel.findByIdAndDelete(request.params.id);
 
-//     if (!processor) response.status(404).send("No item found");
-//     response.status(200).send();
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
+    if (!processor) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 ///////////////////////////////////WorkTime///////////////////////////////////////////////////////////////////
 // app.post("/add_WorkTime",async (request, response) => {
 //   const category = new WorkTimeModel(request.body);
