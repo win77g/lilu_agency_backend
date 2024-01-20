@@ -5,10 +5,10 @@ const ActorsModel = require("./models/modelActors");
 const SliderModel = require("./models/modelSlider");
 const BlogModel = require("./models/modelBlog");
 const SecondBlockModel = require("./models/modelSecondBlock");
-// const SiutableForModel = require("./models/modelSiutableFor");
-// const LanguageModel = require("./models/modelLanguage");
-// const ClientEmailModel = require("./models/modelClientEmail");
-// const WorkerBoxModel = require("./models/modelWorkerBox");
+const ReviewModel = require("./models/modelReview");
+const ServiceModel = require("./models/modelService");
+const ImageServiceModel = require("./models/modelImageService");
+const FooterModel = require("./models/modelFooter");
 // const KeyWordsModel = require("./models/modelKeyWords");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,7 +183,6 @@ console.log('/add_Slider',request.body)
     response.status(500).send(error);
   }
 }); 
-
 app.get("/get_Slider", async (request, response) => {
   const category = await SliderModel.find({});
   
@@ -311,108 +310,184 @@ app.delete("/delete_SB/:id", async (request, response) => {
     response.status(500).send(error);
   }
 });
-///////////////////////////////////WorkTime///////////////////////////////////////////////////////////////////
-// app.post("/add_WorkTime",async (request, response) => {
-//   const category = new WorkTimeModel(request.body);
-//     console.log('312',request.body)
-//   try {
-//     await category.save();
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// }); 
-// app.get("/get_WorkTime", async (request, response) => {
-//   const category = await WorkTimeModel.find({});
+///////////////////////////////////Review///////////////////////////////////////////////////////////////////
+app.post("/add_Review",async (request, response) => {
+  const data = new ReviewModel(request.body);
+    console.log('312',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_Review", async (request, response) => {
+  const data = await ReviewModel.find({});
   
-//   try {
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.put("/update_WorkTime/:id",async (request, response) => {
-//   const { id } = request.params;
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/update_Review/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   console.log(id,request.body)
+  console.log(id,request.body)
   
-//   try {
-//     const product = await WorkTimeModel.findByIdAndUpdate(id,
+  try {
+    const data = await ReviewModel.findByIdAndUpdate(id,
       
-//       {
-//         title: request.body.title,
-//         slug: request.body.slug
-//         }
+      { $set:request.body }
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
-// app.delete("/delete_WorkTime/:id", async (request, response) => {
-//   try {
-//     const processor= await WorkTimeModel.findByIdAndDelete(request.params.id);
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(product);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.delete("/delete_Review/:id", async (request, response) => {
+  try {
+    const data = await ReviewModel.findByIdAndDelete(request.params.id);
 
-//     if (!processor) response.status(404).send("No item found");
-//     response.status(200).send();
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-///////////////////////////////////Language///////////////////////////////////////////////////////////////////
-// app.post("/add_Language",async (request, response) => {
-//   const category = new LanguageModel(request.body);
-//     console.log('363',request.body)
-//   try {
-//     await category.save();
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// }); 
-// app.get("/get_Language", async (request, response) => {
-//   const category = await LanguageModel.find({});
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+///////////////////////////////////Service///////////////////////////////////////////////////////////////////
+app.post("/add_Service",async (request, response) => {
+  const category = new ServiceModel(request.body);
+    console.log('363',request.body)
+  try {
+    await category.save();
+    response.send(category);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_Service", async (request, response) => {
+  const category = await ServiceModel.find({});
   
-//   try {
-//     response.send(category);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.put("/update_Language/:id",async (request, response) => {
-//   const { id } = request.params;
+  try {
+    response.send(category);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/update_Service/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   console.log('383',id,request.body)
+  console.log('383',id,request.body)
   
-//   try {
-//     const product = await LanguageModel.findByIdAndUpdate(id,
+  try {
+    const product = await ServiceModel.findByIdAndUpdate(id,
       
-//       {
-//         title: request.body.title,
-//         slug: request.body.slug
-//         }
+      {
+        title: request.body.title,
+        slug: request.body.slug
+        }
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
-// app.delete("/delete_Language/:id", async (request, response) => {
-//   try {
-//     const processor= await LanguageModel.findByIdAndDelete(request.params.id);
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(product);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.delete("/delete_Service/:id", async (request, response) => {
+  try {
+    const data = await ServiceModel.findByIdAndDelete(request.params.id);
 
-//     if (!processor) response.status(404).send("No item found");
-//     response.status(200).send();
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+///////////////////////////////////ImageService///////////////////////////////////////////////////////////////////
+app.post("/add_ImageService",async (request, response) => {
+  console.log('405',request.body)
+  const data = new ImageServiceModel(request.body);
+    
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_ImageService", async (request, response) => {
+  const data = await ImageServiceModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_ImageService/:id", async (request, response) => {
+  try {
+    const data = await ImageServiceModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+///////////////////////////////////Footer///////////////////////////////////////////////////////////////////
+app.post("/add_Footer",async (request, response) => {
+  const data = new FooterModel(request.body);
+    console.log('437',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+}); 
+app.get("/get_Footer", async (request, response) => {
+  const data = await FooterModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/update_Footer/:id",async (request, response) => {
+  const { id } = request.params;
+  
+  console.log(id,request.body)
+  
+  try {
+    const data = await FooterModel.findByIdAndUpdate(id,
+      
+      { $set:request.body }
+
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(data);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.delete("/delete_Footer/:id", async (request, response) => {
+  try {
+    const data = await FooterModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 ///////////////////////////////////////Email//////////////////////////////////////////////////////////////
 // app.post("/createEmailRegisterClient",async (request, response) => {
 //   const clientEmail = new ClientEmailModel(request.body);
