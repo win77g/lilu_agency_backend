@@ -1,5 +1,4 @@
 const express = require("express");
-// const AdvertisementModel = require("./models/modelAdvertisement");
 const RodModel = require("./models/modelRod");
 const ActorsModel = require("./models/modelActors");
 const SliderModel = require("./models/modelSlider");
@@ -9,7 +8,8 @@ const ReviewModel = require("./models/modelReview");
 const ServiceModel = require("./models/modelService");
 const ImageServiceModel = require("./models/modelImageService");
 const FooterModel = require("./models/modelFooter");
-// const KeyWordsModel = require("./models/modelKeyWords");
+const ClientBoxModel = require("./models/modelClientBox");
+const ClientEmailModel = require("./models/modelClientEmail");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -86,10 +86,11 @@ app.get("/get_Actors", async (request, response) => {
 });
 app.get("/get_Actors/:id", async (request, response) => {
   const { id } = request.params;
-  const data = await ActorsModel.findById(id);
   
+  const data = await ActorsModel.findById(id);
+  console.log(data)
   try {
-    response.send(data);
+    response.send('93',data);
   } catch (error) {
     response.status(500).send(error);
   }
@@ -114,6 +115,7 @@ app.put("/update_Actors/:id",async (request, response) => {
 });
 app.delete("/delete_Actors/:id", async (request, response) => {
   try {
+    console.log('118',request.params.id)
     const data = await ActorsModel.findByIdAndDelete(request.params.id);
 
     if (!data) response.status(404).send("No item found");
@@ -489,89 +491,126 @@ app.delete("/delete_Footer/:id", async (request, response) => {
   }
 });
 ///////////////////////////////////////Email//////////////////////////////////////////////////////////////
-// app.post("/createEmailRegisterClient",async (request, response) => {
-//   const clientEmail = new ClientEmailModel(request.body);
-//   // console.log('clientEmail',request.body)
-//   try {
-//     await clientEmail.save();
-//     response.send(clientEmail);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.get('/getEmail/:email', async (request, response) => {
-//   const clientEmail = await ClientEmailModel.find({'email':request.params.email});
-//   try {
-//     response.send(clientEmail);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.delete("/delete_email/:email", async (request, response) => {
-//   console.log('445,',request.query.id)
+app.post("/createEmailRegisterClient",async (request, response) => {
+  const clientEmail = new ClientEmailModel(request.body);
+  console.log('clientEmail',request.body)
+  try {
+    await clientEmail.save();
+    response.send(clientEmail);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.get('/getEmail/:email', async (request, response) => {
+  console.log(request.params) 
+  const clientEmail = await ClientEmailModel.find({'email':request.params.email});
+  try {
+    response.send(clientEmail);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_email/:email", async (request, response) => {
+  console.log('445,',request.query.id)
  
-//   const clientEmail = await ClientEmailModel.deleteMany({'email':request.params.email});
-//   try {
-//     response.send(clientEmail);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-////////////////////////////////////////WorkerBox/////////////////////////////////////////////////////////////
-// app.post("/createWorkerBox",async (request, response) => {
-//   const WorkerBox = new WorkerBoxModel(request.body);
-//   // console.log('clientEmail',request.body)
-//   try {
-//     await WorkerBox.save();
-//     response.send(WorkerBox);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.get('/getWorkerBox/:email', async (request, response) => {
-//   const clientEmail = await  WorkerBoxModel.find({'email':request.params.email});
-//   try {
-//     response.send(clientEmail);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
-// app.put("/updateWorkerBox/:id",async (request, response) => {
-//   const { id } = request.params;
+  const clientEmail = await ClientEmailModel.deleteMany({'email':request.params.email});
+  try {
+    response.send(clientEmail);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+////////////////////////////////////////ClientBox/////////////////////////////////////////////////////////////
+app.post("/createClientBox",async (request, response) => {
+  const ClientBox = new ClientBoxModel(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    await ClientBox.save();
+    response.send(ClientBox);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.get('/getClientBox/:firebaseId', async (request, response) => {
+  const clientEmail = await  ClientBoxModel.find({'_uidFirebase':request.params.firebaseId});
+  try {
+    response.send(clientEmail);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.put("/updateClientBox/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   console.log('477',id,request.body)
+  console.log('477',id,request.body)
   
-//   try {
-//     const product = await WorkerBoxModel.findByIdAndUpdate(id,
+  try {
+    const ClientBox = await ClientBoxModel.findByIdAndUpdate(id,
       
-//       {_profil:request.body}
+      {_profil:request.body}
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
-// app.put("/updateWorkerBoxSendMail/:id",async (request, response) => {
-//   const { id } = request.params;
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(ClientBox);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.put("/updateClientBoxAddAnimals/:id",async (request, response) => {
+  const { id } = request.params;
   
-//   console.log('495',id,request.body)
+  console.log('563',id,request.body)
   
-//   try {
-//     const product = await WorkerBoxModel.updateOne({_id:id},
+  try {
+    const ClientBox = await ClientBoxModel.updateOne({_id:id},
       
-//      { $push:{_sendMail:{$each:[request.body]}}}
+     { $push:{_animals:{$each:[request.body]}}}
 
-//     ,{new: true});//respons update data
-//     //response.send(product);
-//     response.json(product);
-//   }  
-//   catch (e) {
-//     response.status(500).send(e);
-//   }
-// });
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(ClientBox);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.put("/updateClientBoxUpdateAnimals/:id",async (request, response) => {
+  const { id } = request.params;
+  
+  console.log('581',id,request.body)
+  
+  try {
+    const ClientBox = await ClientBoxModel.findByIdAndUpdate({_id:id},
+      
+     { _animals:request.body}
+
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(ClientBox);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
+app.put("/updateClientBoxUpdateProfile/:id",async (request, response) => {
+  const { id } = request.params;
+  
+  console.log('599',id,request.body)
+  
+  try {
+    const ClientBox = await ClientBoxModel.findByIdAndUpdate(id,
+      
+     {_profil:request.body}
+
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(ClientBox);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////KeyWords/////////////////////////////////////////////////////////////
 // app.post("/add_KeyWords",async (request, response) => {
