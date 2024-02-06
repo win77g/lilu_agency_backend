@@ -74,10 +74,10 @@ app.get("/get_ActorsAll", async (request, response) => {
   }
 });
 app.get("/get_Actors", async (request, response) => {
-  console.log(request.query)
+  console.log('77',request.query)
     // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
     const data = await ActorsModel.find(request.query).limit(20);
-    console.log(data)
+    
   try {
     response.send(data);
   } catch (error) {
@@ -86,11 +86,11 @@ app.get("/get_Actors", async (request, response) => {
 });
 app.get("/get_Actors/:id", async (request, response) => {
   const { id } = request.params;
-  
+  console.log('89',request.params)
   const data = await ActorsModel.findById(id);
-  console.log(data)
+  
   try {
-    response.send('93',data);
+    response.send(data);
   } catch (error) {
     response.status(500).send(error);
   }

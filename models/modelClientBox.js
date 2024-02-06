@@ -1,21 +1,28 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require('mongoose-paginate-v2');
 
+const Date = mongoose.Schema({
+  year: {type: Number},
+  month: {type: Number},
+  day: {type: Number},
+  
+})
+
 const Animals = mongoose.Schema({
   clientId:{ type: String },
-  name :{ type: String ,required: true,},
+  name :{ type: String},
   zodiak:{ type: String },
-  image :[{type: String,required: true,}],
+  image :[{type: String}],
   pol :{ type: String },
   rod :{ type: String },
   poroda :{ type: String },
-  birthday :{ type: String },
+  birthday :{type: Date,set: a => a === '' ? undefined : a},
   ves :{ type: String },
   kupirovanie :{ type: String },
   alergia :{ type: String },
   sostzdorovia :{ type: String },
   privivki :{ type: String },
-  instogram :{ type: String },
+  instagram :{ type: String },
   facebook :{ type: String },
   tiktok :{ type: String },
   twitter :{ type: String },
@@ -30,11 +37,10 @@ const Animals = mongoose.Schema({
 
 const Profile = mongoose.Schema({
   name: {type: String},
-  surname: {type: String},
   city: {type: String},
-  street: {type: String},
   email: {type:String},
   phone: {type:String},
+  phone2: {type:String},
 })
 
 const ClientBoxSchema =  new mongoose.Schema({
