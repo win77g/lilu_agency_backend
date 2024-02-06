@@ -611,6 +611,24 @@ app.put("/updateClientBoxUpdateProfile/:id",async (request, response) => {
     response.status(500).send(e);
   }
 });
+app.put("/updateClientBoxAddAnimalsFireBAseId/:firebaseId",async (request, response) => {
+  const { id } = request.params;
+  
+  console.log('563',id,request.body)
+  
+  try {
+    const ClientBox = await ClientBoxModel.updateOne({'_uidFirebase':request.params.firebaseId},
+      
+     {_animals:request.body}
+     
+    ,{new: true});//respons update data
+    //response.send(product);
+    response.json(ClientBox);
+  }  
+  catch (e) {
+    response.status(500).send(e);
+  }
+});
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////KeyWords/////////////////////////////////////////////////////////////
 // app.post("/add_KeyWords",async (request, response) => {
