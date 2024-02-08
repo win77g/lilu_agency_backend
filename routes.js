@@ -10,6 +10,7 @@ const ImageServiceModel = require("./models/modelImageService");
 const FooterModel = require("./models/modelFooter");
 const ClientBoxModel = require("./models/modelClientBox");
 const ClientEmailModel = require("./models/modelClientEmail");
+const PorodKotModel = require("./models/modelPorodKot");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -539,6 +540,14 @@ app.get('/getClientBox/:firebaseId', async (request, response) => {
     response.status(500).send(error);
   }
 });
+app.get('/getClientBox/', async (request, response) => {
+  const clientEmail = await  ClientBoxModel.find();
+  try {
+    response.send(clientEmail);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 app.put("/updateClientBox/:id",async (request, response) => {
   const { id } = request.params;
   
@@ -630,6 +639,38 @@ app.put("/updateClientBoxAddAnimalsFireBAseId/:firebaseId",async (request, respo
   }
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////PorodKot/////////////////////////////////////////////////////////////
+app.post("/createPorodKot",async (request, response) => {
+  console.log('644',request.body)
+  const data = new PorodKotModel(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.get("/get_PorodKot", async (request, response) => {
+  const data = await PorodKotModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_PorodKot/:id", async (request, response) => {
+  console.log(request.params.id)
+  try {
+    const data = await PorodKotModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
 ////////////////////////////////////////KeyWords/////////////////////////////////////////////////////////////
 // app.post("/add_KeyWords",async (request, response) => {
 //   const category = new KeyWordsModel(request.body);

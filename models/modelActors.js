@@ -11,6 +11,10 @@ const Date = mongoose.Schema({
 
 const ActorsSchema =  new mongoose.Schema({
       clientId: {type: String},
+      hozain:{type: String},
+      hozainTel:{type: String},
+      hozainEmail:{type: String},
+      hozainCity:{type: String},
       name: {type: String},
       slug : {type: String},
       pol: {type: String},
