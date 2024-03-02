@@ -11,6 +11,9 @@ const FooterModel = require("./models/modelFooter");
 const ClientBoxModel = require("./models/modelClientBox");
 const ClientEmailModel = require("./models/modelClientEmail");
 const PorodKotModel = require("./models/modelPorodKot");
+const PorodPesModel = require("./models/modelPorodPes");
+const PorodPtahModel = require("./models/modelPorodPtah");
+const PorodGrizunModel = require("./models/modelPorodGrizun");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -66,7 +69,7 @@ console.log('/add_Actors',request.body)
 app.get("/get_ActorsAll", async (request, response) => {
   console.log(request.query)
     // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
-    const data = await ActorsModel.find().limit(20);
+    const data = await ActorsModel.find().limit(20).sort({createdAt:-1});
     console.log(data)
   try {
     response.send(data);
@@ -77,7 +80,7 @@ app.get("/get_ActorsAll", async (request, response) => {
 app.get("/get_Actors", async (request, response) => {
   console.log('77',request.query)
     // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
-    const data = await ActorsModel.find(request.query).limit(20);
+    const data = await ActorsModel.find(request.query).limit(20).sort({createdAt:-1});
     
   try {
     response.send(data);
@@ -638,7 +641,7 @@ app.put("/updateClientBoxAddAnimalsFireBAseId/:firebaseId",async (request, respo
     response.status(500).send(e);
   }
 });
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////PorodKot/////////////////////////////////////////////////////////////
 app.post("/createPorodKot",async (request, response) => {
   console.log('644',request.body)
@@ -648,6 +651,18 @@ app.post("/createPorodKot",async (request, response) => {
     await data.save();
     response.send(data);
   } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.post("/createPorodKotExcel",async (request, response) => {
+  console.log('655',request.body)
+  const data = PorodKotModel.create(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    // await data.save();
+    response.send(data);
+  } catch (error) {
+    console.log(error)
     response.status(500).send(error);
   }
 });
@@ -671,7 +686,139 @@ app.delete("/delete_PorodKot/:id", async (request, response) => {
     response.status(500).send(error);
   }
 });
-////////////////////////////////////////KeyWords/////////////////////////////////////////////////////////////
+////////////////////////////////////////PorodPes/////////////////////////////////////////////////////////////
+app.post("/createPorodPes",async (request, response) => {
+  console.log('644',request.body)
+  const data = new PorodPesModel(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.post("/createPorodPesExcel",async (request, response) => {
+  console.log('655',request.body)
+  const data = PorodPesModel.create(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    // await data.save();
+    response.send(data);
+  } catch (error) {
+    console.log(error)
+    response.status(500).send(error);
+  }
+});
+app.get("/get_PorodPes", async (request, response) => {
+  const data = await PorodPesModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_PorodPes/:id", async (request, response) => {
+  console.log(request.params.id)
+  try {
+    const data = await PorodPesModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+////////////////////////////////////////PorodPtah/////////////////////////////////////////////////////////////
+app.post("/createPorodPtah",async (request, response) => {
+  console.log('644',request.body)
+  const data = new PorodPtahModel(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.post("/createPorodPtahExcel",async (request, response) => {
+  console.log('655',request.body)
+  const data = PorodPtahModel.create(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    // await data.save();
+    response.send(data);
+  } catch (error) {
+    console.log(error)
+    response.status(500).send(error);
+  }
+});
+app.get("/get_PorodPtah", async (request, response) => {
+  const data = await PorodPtahModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_PorodPtah/:id", async (request, response) => {
+  console.log(request.params.id)
+  try {
+    const data = await PorodPtahModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+////////////////////////////////////////PorodGrizun/////////////////////////////////////////////////////////////
+app.post("/createPorodGrizun",async (request, response) => {
+  console.log('644',request.body)
+  const data = new PorodGrizunModel(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    await data.save();
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.post("/createPorodGrizunExcel",async (request, response) => {
+  console.log('655',request.body)
+  const data = PorodGrizunModel.create(request.body);
+  // console.log('clientEmail',request.body)
+  try {
+    // await data.save();
+    response.send(data);
+  } catch (error) {
+    console.log(error)
+    response.status(500).send(error);
+  }
+});
+app.get("/get_PorodGrizun", async (request, response) => {
+  const data = await PorodGrizunModel.find({});
+  
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.delete("/delete_PorodGrizun/:id", async (request, response) => {
+  console.log(request.params.id)
+  try {
+    const data = await PorodGrizunModel.findByIdAndDelete(request.params.id);
+
+    if (!data) response.status(404).send("No item found");
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+////////////////////////////////////////KeyWords///////////////////////////////////////////////////////////////
 // app.post("/add_KeyWords",async (request, response) => {
 //   const category = new KeyWordsModel(request.body);
 //     console.log('363',request.body)

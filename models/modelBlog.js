@@ -8,7 +8,11 @@ const BlogSchema = new mongoose.Schema({
   main_text : {type: String},
   image: [{type: String}],
   slug: {type:String},
-  
+  keywords: {type:String},
+  description: {type:String},
+  category: {type:String},
+  tag:[{type:String}],
+  author:{type:String}
 },{ timestamps: true },)
 
 if(this.title){
