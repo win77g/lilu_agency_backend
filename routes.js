@@ -66,6 +66,7 @@ console.log('/add_Actors',request.body)
     response.status(500).send(error);
   }
 }); 
+// show actors for main admin panel
 app.get("/get_ActorsAll", async (request, response) => {
   console.log(request.query)
     // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
@@ -77,10 +78,11 @@ app.get("/get_ActorsAll", async (request, response) => {
     response.status(500).send(error);
   }
 });
+// show actors for site
 app.get("/get_Actors", async (request, response) => {
-  console.log('77',request.query)
+
     // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
-    const data = await ActorsModel.find(request.query).limit(20).sort({createdAt:-1});
+    const data = await ActorsModel.find({ 'status': 'aktiv' }).limit(20).sort({createdAt:-1});
     
   try {
     response.send(data);
