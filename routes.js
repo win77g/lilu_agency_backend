@@ -81,9 +81,9 @@ app.get("/get_ActorsAll", async (request, response) => {
 // show actors for site
 app.get("/get_Actors", async (request, response) => {
 
-    // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } }
+    // const query = { category: { $in: [ "Informatika", "Personalistika a HR"] } } ,{ 'status': 'aktiv' }
     const data = await ActorsModel.find({ 'status': 'aktiv' }).limit(20).sort({createdAt:-1});
-    
+     
   try {
     response.send(data);
   } catch (error) {
@@ -95,6 +95,17 @@ app.get("/get_Actors/:id", async (request, response) => {
   console.log('89',request.params)
   const data = await ActorsModel.findById(id);
   
+  try {
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+app.get("/get_ActorsAfterFilter/", async (request, response) => {
+  // const { d } = request.params;
+  console.log('106',request.query)
+  const data = await ActorsModel.find(request.query).limit(20).sort({createdAt:-1});
+  console.log('108',data)
   try {
     response.send(data);
   } catch (error) {
