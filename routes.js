@@ -15,7 +15,8 @@ const PorodPesModel = require("./models/modelPorodPes");
 const PorodPtahModel = require("./models/modelPorodPtah");
 const PorodGrizunModel = require("./models/modelPorodGrizun");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+const sgMail = require("@sendgrid/mail")
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const fs = require('fs');
 const app = express();
@@ -58,6 +59,14 @@ app.get("/privacy_policy", async (req, res) => {
 
 app.post("/add_Actors",async (request, response) => {
   const data = new ActorsModel(request.body);
+  const msg = {
+    to: "sergsergio777@gmail.com",
+    from: "sergsergio777@gmail.com",
+    subject: "Регистрация пушистика",
+    text: "Регистрация пушистика",
+    html: "<strong>Регистрация пушистика</strong>"
+  }
+  sgMail.send(msg)
 console.log('/add_Actors',request.body)
   try {
     await data.save();
