@@ -9,11 +9,13 @@ node_modules/
 
 # production
 /build
+
 *.env
 *.env.example
 *.env.local
 *.env.staging
 # misc
+
 config.env
 .DS_Store
 .env.local
