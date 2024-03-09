@@ -59,6 +59,7 @@ app.get("/privacy_policy", async (req, res) => {
 
 app.post("/add_Actors",async (request, response) => {
   const data = new ActorsModel(request.body);
+  // const url = "https://us21.api.mailchimp.com/3.0/lists/40d927ab82"
   const msg = {
     to: "sergsergio777@gmail.com",
     from: "sergsergio777@gmail.com",
@@ -66,7 +67,7 @@ app.post("/add_Actors",async (request, response) => {
     text: "Регистрация пушистика",
     html: "<strong>Регистрация пушистика</strong>"
   }
-  sgMail.send(msg)
+  sgMail.send(msg).then( (res) => console.log('email.send')).catch((error)=>console.log(error.message))
 console.log('/add_Actors',request.body)
   try {
     await data.save();
