@@ -62,7 +62,7 @@ app.post("/add_Actors",async (request, response) => {
   // const url = "https://us21.api.mailchimp.com/3.0/lists/40d927ab82"
   const msg = {
     to: "sergsergio777@gmail.com",
-    from: "win21g@email.cz",
+    from: "sergsergio777@gmail.com",
     subject: "Регистрация пушистика",
     text: "Регистрация пушистика",
     html: "<strong>Регистрация пушистика</strong>"
